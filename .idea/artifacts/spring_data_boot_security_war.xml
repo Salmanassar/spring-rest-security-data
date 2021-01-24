@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="spring-data-boot-security:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>spring-data-boot-security</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="spring_security.war">
+      <element id="artifact" artifact-name="spring-data-boot-security:war exploded" />
+    </root>
+  </artifact>
+</component>
