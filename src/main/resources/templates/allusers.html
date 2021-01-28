@@ -75,7 +75,7 @@
                                 <div class="tab-pane fade show active m-0" id="home" role="tabpanel"
                                      aria-labelledby="home-tab">
                                     <div class="fw-bold fs-5 border-bottom m-0 p-3 bg-light ">All users</div>
-                                    <div class="tab-pane m-4">
+                                    <div class="tab-pane m-4" id="refresh">
                                         <table class="table table-striped">
                                             <thead class="border-top border-bottom">
                                             <tr>
@@ -90,6 +90,7 @@
                                             </tr>
                                             </thead>
                                             <tbody class="tableGenerateJs" id="table_js">
+
                                             <!--                                               generate table from js code-->
 
                                             </tbody>
@@ -180,7 +181,7 @@
                                                                     data-dismiss="modal" id="closeEdit">Close
                                                             </button>
                                                             <button type="button" class="btn btn-primary"
-                                                                    onclick="updateUser()">Edit
+                                                                    onclick="updateUser()" >Edit
                                                             </button>
                                                         </div>
                                                     </div>
@@ -199,7 +200,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title fw-bold">Delete user</h5>
-                                                            <button type="button" class="btn btn-close"
+                                                            <button type="button" class="btn btn-close" id="closeDelete"
                                                                     data-dismiss="modal" aria-label="Close">
                                                             </button>
                                                         </div>

@@ -1,11 +1,11 @@
-window.onload = getTable()
+$(document).ready(getTable())
 
 function getTable() {
+    let empty = $('#table_js').empty()
     fetch('/admin/users').then(
         response => response.json()).then(
         data => {
             let tableElementByID = document.getElementById('table_js')
-            let fillDataTable
             let roleToSting
             for (let i = 0; i < data.length; i++) {
                 // get the roles from json field 'rolesString' it is the field in my project
@@ -82,9 +82,9 @@ function updateUser() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(body)
-        })
+        }).then(refreshTable).then(getTable)
     }
-    refreshTable()
+
     document.getElementById('closeEdit').click()
 }
 
@@ -110,8 +110,8 @@ function deleteUser() {
     sendRequest('DELETE', urlMethodDeleteRest)
         .then(() => {
                 console.log('User ' + userId + ' is deleted')
-                let deleteTR = "#user-row-" + userId;
-                $(deleteTR).remove();
+                let deleteTR = "#user-row-" + userId
+                $(deleteTR).remove()
             }
         )
         .catch(err => console.log(err))
@@ -122,10 +122,10 @@ function deleteUser() {
         })
             .then((response) => {
                 return response;
-            })
+            }).then(refreshTable).then(getTable())
     }
 
-    refreshTable()
+    document.getElementById('closeDelete').click()
 }
 
 function createUser() {
@@ -159,7 +159,6 @@ function createUser() {
             body: JSON.stringify(body)
         })
     }
-    refreshTable()
 }
 
 function getTableAdminUser() {
@@ -202,9 +201,8 @@ function getTableAdminUser() {
     );
 }
 
-
-
-
 function refreshTable() {
-    return location.reload();
+    let empty = $('#table_js').empty()
+    const next = $('<tbody id="table_js"> </tbody>')
+    empty.replaceWith(next)
 }
