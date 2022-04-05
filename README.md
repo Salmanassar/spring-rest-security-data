@@ -3,9 +3,9 @@ In all cases you can log in and than you see main page with your email and role 
 
 The project uses
 
-Backend: Spring Boot, Spring Security, Spring Data, Hibernate, PostgreSQL and Docker for image postgresql
+1) backend: Spring Boot, Spring Security, Spring Data, Hibernate and Docker for connection image Postgresql
 
-Frontend: JavaScript and Bootstrap 
+2) frontend: JavaScript, Bootstrap and Thymeleaf
 
 Accessibility for registration with a role
 
