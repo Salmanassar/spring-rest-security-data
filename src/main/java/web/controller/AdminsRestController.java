@@ -33,20 +33,7 @@ public class AdminsRestController {
     @PutMapping("/edit/")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN ROLE_USER')")
     public void update(User user, @RequestBody JSONObject json) throws JSONException {
-        Long id = json.getLong("idEdit");
-        String firstName = json.getString("first_name");
-        String lastName = json.getString("last_name");
-        byte age = (byte) json.getInt("age");
-        String email = json.getString("email");
-        String password = json.getString("password");
-        String role = json.getString("role");
-        user.setId(id);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setAge(age);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setRoles(new Role().setRoleString(role));
+        user = getAndPutInformationToUser(user, json);
         userService.updateUser(user);
     }
 
@@ -63,19 +50,30 @@ public class AdminsRestController {
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN ROLE_USER')")
     public User create(User user, @RequestBody JSONObject json) throws JSONException {
-        String firstName = json.getString("firstName");
-        String lastName = json.getString("lastName");
-        byte age = (byte) json.getInt("age");
-        String email = json.getString("email");
-        String password = json.getString("password");
-        String role = json.getString("role");
-        user.setId(0L);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setAge(age);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setRoles(new Role().setRoleString(role));
+        user = getAndPutInformationToUser(user, json);
         return userService.createUser(user);
+    }
+
+    private User getAndPutInformationToUser(User user, JSONObject json) throws JSONException {
+        user = User.builder()
+                .id(checkIDUser(user, json))
+                .firstName(json.getString("first_name"))
+                .lastName(json.getString("last_name"))
+                .age((byte) json.getInt("age"))
+                .email(json.getString("email"))
+                .password(json.getString("password"))
+                .roles(new Role().setRoleString(json.getString("role")))
+                .build();
+        return user;
+    }
+
+    private Long checkIDUser(User user, JSONObject json) throws JSONException {
+        Long id;
+        if (json.isNull("idEdit")) {
+           id = 0L;
+        } else {
+            id = json.getLong("idEdit");
+        }
+        return id;
     }
 }
