@@ -1,5 +1,8 @@
 The project is CRM Systerm wich based on CRUD operation, with authentication and distribution of roles like USER, ADMIN and ADMIN and USER simultaneously (ADMIN_USER)
-In all cases for logging in you see email and role 
+In all cases you can log in and than you see main page with your email and role and some functions like log out or edit profile and another depending on role
+The project uses
+Backend: Spring Boot, Spring Security, Spring Data, Hibernate, PostgreSQL and Docker for image postgresql
+Frontend: JavaScript and Bootstrap 
 
 Accessibility for registration with a role
 
