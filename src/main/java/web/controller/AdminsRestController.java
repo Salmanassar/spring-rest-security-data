@@ -49,14 +49,13 @@ public class AdminsRestController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN ROLE_USER')")
-    public User create(User user, @RequestBody JSONObject json) throws JSONException {
-        user = getAndPutInformationToUser(user, json);
-        return userService.createUser(user);
+    public void create(User user, @RequestBody JSONObject json) throws JSONException {
+       userService.createUser(RegistrationController.getDataAndCreateUser(user, json));
     }
 
     private User getAndPutInformationToUser(User user, JSONObject json) throws JSONException {
         user = User.builder()
-                .id(checkIDUser(user, json))
+                .id(json.getLong("idEdit"))
                 .firstName(json.getString("first_name"))
                 .lastName(json.getString("last_name"))
                 .age((byte) json.getInt("age"))
@@ -65,15 +64,5 @@ public class AdminsRestController {
                 .roles(new Role().setRoleString(json.getString("role")))
                 .build();
         return user;
-    }
-
-    private Long checkIDUser(User user, JSONObject json) throws JSONException {
-        Long id;
-        if (json.isNull("idEdit")) {
-           id = 0L;
-        } else {
-            id = json.getLong("idEdit");
-        }
-        return id;
     }
 }

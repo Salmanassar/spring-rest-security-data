@@ -26,6 +26,10 @@ class RegistrationController {
 
     @PostMapping(value = "register")
     public User create(User user, @RequestBody JSONObject json) throws JSONException {
+        return userService.createUser(getDataAndCreateUser(user,json));
+    }
+
+    public static User getDataAndCreateUser(User user, JSONObject json) throws JSONException {
         String firstName = json.getString("firstName");
         String lastName = json.getString("lastName");
         byte age = (byte) json.getInt("age");
@@ -39,6 +43,6 @@ class RegistrationController {
         user.setEmail(email);
         user.setPassword(password);
         user.setRoles(new Role().setRoleString(role));
-        return userService.createUser(user);
+        return user;
     }
 }
