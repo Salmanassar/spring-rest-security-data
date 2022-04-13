@@ -49,8 +49,8 @@ public class AdminsRestController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN ROLE_USER')")
-    public void create(User user, @RequestBody JSONObject json) throws JSONException {
-       userService.createUser(RegistrationController.getDataAndCreateUser(user, json));
+    public User create(User user, @RequestBody JSONObject json) throws JSONException {
+        return userService.createUser(RegistrationController.getDataAndCreateUser(user, json));
     }
 
     private User getAndPutInformationToUser(User user, JSONObject json) throws JSONException {
